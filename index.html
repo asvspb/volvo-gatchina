@@ -1030,26 +1030,25 @@
               e.preventDefault();
             }
           });
-          $('#form-phone').submit(function(event) {
 
-            event.preventDefault();
-
-            var msg = $('#form-phone').serialize();
-            $.ajax({
-              type: 'POST',
-              url: 'mail.php',
-              data: msg,
-              success: function(data) {
-                $('#modal-form-phone').fadeOut();
-                $('#modal-thank').fadeIn();
-                $('#form-phone')[0].reset();
-              },
-              error: function(xhr, str){
-                $('#modal-form-phone').fadeOut();
-                $('#modal-thank').fadeIn();
-              }
-            });
+         $("#form-phone").submit(function() { //Change
+          var th = $(this);
+          $.ajax({
+           type: "POST",
+           url: "mail.php", //Change
+           data: th.serialize()
+          }).done(function() {
+           $('#modal-form-phone').fadeOut();
+           $('#modal-thank').fadeIn();
+           $('#form-phone')[0].reset();
+          })
+           .fail(function() {
+           $('#modal-form-phone').fadeOut();
+           $('#modal-thank').fadeIn();
           });
+          return false;
+         });
+
           new WOW().init();
       });
        </script>
